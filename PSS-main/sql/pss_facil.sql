@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2023 at 05:17 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Nov 15, 2024 at 08:29 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -71,6 +71,37 @@ INSERT INTO `mensagens_usuario` (`id`, `mensagem_usuario`, `assunto`, `id_usuari
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_empregador`
+--
+
+CREATE TABLE `tb_empregador` (
+  `id_empregador` int(11) NOT NULL,
+  `nome_empresa` varchar(80) NOT NULL,
+  `cnpj` varchar(14) NOT NULL,
+  `email` varchar(80) NOT NULL,
+  `cep` int(10) NOT NULL,
+  `rua` varchar(80) NOT NULL,
+  `numero_endereco_empresa` int(20) NOT NULL,
+  `complemento` varchar(100) DEFAULT NULL,
+  `bairro` varchar(50) NOT NULL,
+  `cidade` varchar(50) NOT NULL,
+  `uf` varchar(20) NOT NULL,
+  `senha` varchar(50) NOT NULL,
+  `telefone` int(20) DEFAULT NULL,
+  `celular` int(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_empregador`
+--
+
+INSERT INTO `tb_empregador` (`id_empregador`, `nome_empresa`, `cnpj`, `email`, `cep`, `rua`, `numero_endereco_empresa`, `complemento`, `bairro`, `cidade`, `uf`, `senha`, `telefone`, `celular`) VALUES
+(2, 'Empresa teste', '12345678901234', 'empresaX@gmail.com', 2546, 'sghhgfs', 34, 'afdg', 'adfs', 'asd', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 34573, 0),
+(3, 'Empresa X', '11111111111111', 'empresa@gmail.com', 32454, 'Teste', 123, '', 'Teste', 'Curitiba', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 365345, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_usuario`
 --
 
@@ -106,10 +137,11 @@ CREATE TABLE `tb_usuario` (
 --
 
 INSERT INTO `tb_usuario` (`id_usuario`, `nome_completo`, `data_nascimento`, `cpf`, `rg`, `estado_rg`, `email`, `sexo`, `canhoto`, `estado_civil`, `nome_mae`, `nome_pai`, `nacionalidade`, `naturalidade`, `cep`, `rua`, `numero_casa`, `complemento`, `bairro`, `cidade`, `uf`, `senha`, `telefone`, `celular`) VALUES
-(11, 'Teste', '0000-00-00', '10020030044', 123456789, '5', 'email@email.com', '1', '2', '4', 'Nome mãe', 'Nome pai', 'Jordânia', '5', 234234, 'ruaDoLadoDaOutraRua', 888, 'Do lado da outra rua', 'Bairro Tal', 'Cidade logo alí', 'BB', 'e10adc3949ba59abbe56e057f20f883e', 0, 0),
+(11, 'Teste', '0000-00-00', '10020030044', 123456789, '5', 'email@email.com', '1', '2', '4', 'Nome mãe', 'Nome pai', 'Jordânia', '5', 44444444, 'ruaDoLadoDaOutraRua', 888, 'Do lado da outra rua', 'Bairro Tal', '', 'BB', 'e10adc3949ba59abbe56e057f20f883e', 0, 0),
 (12, 'Teste 2', '1999-03-12', '55544433322', 1221122112, '5', 'OutroEmail@gmail.com', '1', '1', '2', 'Ciclana', 'Ciclano', 'Índia', '5', 66223, 'Aquela Rua', 345, 'Perto da outra rua', 'O bairro lá longe', 'A cidade logo ali', 'HH', 'e10adc3949ba59abbe56e057f20f883e', 0, 0),
 (16, 'Teste 3', '1978-03-04', '12345678910', 123456789, '5', 'vitu@gmail.com', '1', '2', '3', 'Fulana', 'Fulano', 'Noruega', '5', 3423667, 'ruaDoLadoDaOutraRua', 888, 'Do lado da outra rua', 'Bairro Tal', 'Cidade logo alí', 'PV', 'e10adc3949ba59abbe56e057f20f883e', 123456789, 123456789),
-(17, 'Vitor Gonçalves de Castro', '1932-07-04', '10733496823', 612332100, '5', 'vitu@gmail.com', '1', '2', '1', 'Fulana', 'Fulano', 'Brasil', '5', 0, 'ruaDoLadoDaOutraRua', 888, 'Do lado da outra rua', 'Bairro Tal', 'Cidade logo alí', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 0, 999998888);
+(17, 'Vitor Gonçalves de Castro', '1932-07-04', '10733496823', 612332100, '5', 'vitu@gmail.com', '1', '2', '1', 'Fulana', 'Fulano', 'Brasil', '5', 0, 'ruaDoLadoDaOutraRua', 888, 'Do lado da outra rua', 'Bairro Tal', 'Cidade logo alí', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 0, 999998888),
+(18, 'Teste fulano', '0000-00-00', '123456789', 2147483647, '5', 'testefulano@gmail.com', '1', '1', '4', 'Teste mae', 'teste pai', 'Eslováquia', '5', 394867, 'çaodfhg', 97, 'õreghnveõ', 'adr~hgaid', '~ehjet~ihgjtea', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 2147483647, 463565);
 
 --
 -- Indexes for dumped tables
@@ -126,6 +158,12 @@ ALTER TABLE `certificados_cursos`
 --
 ALTER TABLE `mensagens_usuario`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_empregador`
+--
+ALTER TABLE `tb_empregador`
+  ADD PRIMARY KEY (`id_empregador`);
 
 --
 -- Indexes for table `tb_usuario`
@@ -150,10 +188,16 @@ ALTER TABLE `mensagens_usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tb_empregador`
+--
+ALTER TABLE `tb_empregador`
+  MODIFY `id_empregador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
