@@ -34,7 +34,7 @@ if (isset($_GET['logout'])) {
 <header class="header">
     <nav class="navbar">
         <h2>
-            <a href="index.php"><img src="img/logo-final.png" class="navbar-logo" alt="PSS Fácil"></a>
+            <a href="index.php"><img src="../img/logo-final.png" class="navbar-logo" alt="PSS Fácil"></a>
         </h2>
         <ul class="nav-menu">
             <li class="nav-item"><a href="quem-somos.php" class="nav-link">Quem somos</a></li>

@@ -11,11 +11,11 @@ include "headHTML.php"
             <form action="cadastro-empregador.php" method="POST">
                 <div class="mb-3">
                     <label for="form-nome-da-empresa" class="form-label">Nome da empresa:</label>
-                    <input type="text" class="form-control" id="form-nome-da-empresa" name="form-nome-da-empresa" > <!--required-->
+                    <input type="text" class="form-control" id="form-nome-da-empresa" name="form-nome-empresa" > <!--required-->
                 </div>
               
                 <div class="mb-3">
-                    <label for="form-cep" class="form-label">Email:</label>
+                    <label for="form-email" class="form-label">Email:</label>
                     <input type="text" class="form-control" id="form-email" name="form-email" placeholder="email" > <!--required-->
                 </div>
                
@@ -25,7 +25,7 @@ include "headHTML.php"
                 </div>
                 <div>
                     <label for="form-uf-empresa" class="form-uf-empresa">UF:</label>
-                    <input type="text" class="form-control" id="form-uf-empresa" name="uf-empresa">
+                    <input type="text" class="form-control" id="form-uf-empresa" name="form-uf-empresa">
                 </div>
                 <div class="mb-3">
                     <label for="form-telefone" class="form-telefone">Telefone:</label>
@@ -45,7 +45,7 @@ include "headHTML.php"
                 </div>
                 <div class="mb-3">
                     <label for="form-numero-da-casa" class="form-label">Número da casa:</label>
-                    <input type="text" class="form-control" id="form-numero-da-casa" name="form-numero-da-casa" > <!--required-->
+                    <input type="text" class="form-control" id="form-numero-da-casa" name="form-numero-endereco-empresa" > <!--required-->
                 </div>
                 <div class="mb-3">
                     <label for="form-complemento" class="form-label">Complemento:</label>

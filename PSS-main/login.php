@@ -52,6 +52,6 @@ if (isset($_POST["entrar"])) {
     <div class="row">
         <a class="mb-2" href="#">Esqueci minha senha</a>
         <a class="mb-2" href="criar-conta.php">Não possui uma conta? Cadastre-se</a>
-        <a class="mb-2" href="login-empregador.php">É empregador? Entre aqui!</a>
+        <a class="mb-2" href="entrar-empregador.php">É empregador? Entre aqui!</a>
     </div>
 </form>

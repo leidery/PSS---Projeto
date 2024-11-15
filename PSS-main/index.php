@@ -1,9 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE php>
 <html lang="pt-br">
 
-<?php
-include "headHTML.php"
-?>
+<?php include "headHTML.php" ?>
 
 </html>
 
