@@ -30,7 +30,7 @@ Este projeto tem como objetivo facilitar e otimizar o processo de contratação 
 1. **Clonar o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   https://github.com/leidery/PSS---Projeto.git
    ```
 
 2. **Configurar o banco de dados:**
@@ -45,4 +45,4 @@ Este projeto tem como objetivo facilitar e otimizar o processo de contratação 
 
 4. **Acessar o sistema:**
 
-   * Abra seu navegador e vá para http://localhost/nome-do-repositorio
+   * Abra seu navegador e vá para https://github.com/leidery/PSS---Projeto
