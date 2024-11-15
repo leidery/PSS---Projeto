@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cadastro empregador</title>
+</head>
+<body>
+    <main class="main">
+        <div class="container" id="form-principal">
+            <h1>Formulário de inscrição</h1>
+            <form action="cadastro-empregador.php" method="POST">
+                <div class="mb-3">
+                    <label for="form-da-empresa" class="form-label">Nome completo:</label>
+                    <input type="text" class="form-control" id="form-da-empresa" name="form-da-empresa" > <!--required-->
+                </div>
+                <div class="mb-3">
+                    <label for="form-ccnpj" class="form-cnpj">CNPJ:</label>
+                    <input type="text" class="form-control" id="form-cnpj" name="form-ccnpj" placeholder="00.000.000/0000-00." > <!--required-->
+                </div>
+                <label for="form-estado-empresa" class="form-label">Estado</label>
+                <select class="form-select mb-3" id="form-estado-empresa" name="form-estado-empresa" > <!--required-->
+                    <option selected>Selecione</option>
+                    <option value="1">Acre(AC)</option>
+                    <option value="2">Alagoas(AL)</option>
+                    <option value="3">Amapá(Ap)</option>
+                    <option value="4">Bahia(BA)</option>
+                    <option value="5">Ceará(CE)</option>
+                    <option value="5">Distrito Federal(DF)</option>
+                    <option value="5">Espírito Santo(ES)</option>
+                    <option value="5">Goás(GO)</option>
+                    <option value="5">Maranhão(MA)</option>
+                    <option value="5">Mato Grosso(MT)</option>
+                    <option value="5">Mato Grosso do Sul(MS)</option>
+                    <option value="5">Minas Gerai(MG)</option>
+                    <option value="5">Pará(PA)</option>
+                    <option value="5">Paraíba(PB)</option>
+                    <option value="5">Paraná(PR)</option>
+                    <option value="5">Pernambuco(PE)</option>
+                    <option value="5">Piauí(PI)</option>
+                    <option value="5">Rio de Janeiro(RJ)</option>
+                    <option value="5">Rio Grande do Norte(RN)</option>
+                    <option value="5">Rio Grande do Sul(RS)</option>
+                    <option value="5">Rondônia(RO)</option>
+                    <option value="5">Roraima(RR)</option>
+                    <option value="5">Santa Catarina(SC)</option>
+                    <option value="5">São Paulo(SP)</option>
+                    <option value="5">Sergipe(SE)</option>
+                    <option value="5">Tocantins(TO)</option>
+                </select>
+                <div class="mb-3">
+                    <label for="form-telefone" class="form-telefone">Telefone:</label>
+                    <input type="number" class="form-control" id="form-telefone" name="form-telefone">
+                </div>
+                <div class="mb-3">
+                    <label for="form-celular" class="form-celular">Celular:</label>
+                    <input type="number" class="form-control" id="form-celular" name="form-celular" requierd>
+                </div>
+</body>
+</html>
