@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2024 at 08:29 PM
+-- Generation Time: Nov 19, 2024 at 03:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,6 +45,28 @@ CREATE TABLE `certificados_cursos` (
 
 INSERT INTO `certificados_cursos` (`id`, `url_certificado`, `id_usuario`, `tipo_curso`, `graduacao`, `curso`, `orgao_emissor`, `data_emissao`, `nome_arquivo`) VALUES
 (54, 'upload_certificados_cursos/PI GANT.pdf', 17, '2', '1', 'Curso b', 'Orgao c', '0000-00-00', 'Meu arquivo');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `empregador_editais`
+--
+
+CREATE TABLE `empregador_editais` (
+  `id` int(11) NOT NULL,
+  `id_empregador` int(11) NOT NULL,
+  `conteudo_edital` text DEFAULT NULL,
+  `data` timestamp NOT NULL DEFAULT current_timestamp(),
+  `titulo_edital` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `empregador_editais`
+--
+
+INSERT INTO `empregador_editais` (`id`, `id_empregador`, `conteudo_edital`, `data`, `titulo_edital`) VALUES
+(1, 3, 'teste conteudo edital', '2024-11-19 14:34:54', 'Teste de novo edital'),
+(2, 2, 'Conteudo', '2024-11-19 14:35:37', 'Teste edital em outra conta');
 
 -- --------------------------------------------------------
 
@@ -154,6 +176,12 @@ ALTER TABLE `certificados_cursos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `empregador_editais`
+--
+ALTER TABLE `empregador_editais`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mensagens_usuario`
 --
 ALTER TABLE `mensagens_usuario`
@@ -180,6 +208,12 @@ ALTER TABLE `tb_usuario`
 --
 ALTER TABLE `certificados_cursos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT for table `empregador_editais`
+--
+ALTER TABLE `empregador_editais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mensagens_usuario`
