@@ -1,18 +1,37 @@
 <?php
 session_start();
 
-// if (isset($_GET['logout'])) {
-//     session_unset(); // Limpa os dados da sessão
-//     session_destroy();
-//     $_SESSION = array(); // Limpa os dados da sessão do array global $_SESSION
-//     header('location: entrar.php?logged_out=true');
-//     exit();
-// }
+include "conn.php";
 
+// Se não estiver logado, é redirecionado para login.
 if (!isset($_SESSION['login'])) {
     header('location: entrar.php');
     exit();
 }
+
+// Recupera os dados do usuário logado.
+if (isset($_SESSION['login'])) {
+    $consulta_dados = $conn->prepare('SELECT * FROM `tb_usuario` WHERE id_usuario = :pId_usuario');
+    $consulta_dados->bindValue(':pId_usuario', $_SESSION['login']);
+    $consulta_dados->execute();
+    $row_dados = $consulta_dados->fetch();
+}
+
+// Verificar se há uma pesquisa
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+
+// Modificar a consulta para considerar a pesquisa
+if ($searchTerm) {
+    // A consulta inclui o filtro de pesquisa para título e conteúdo do edital
+    $exibir_editais = $conn->prepare("SELECT * FROM empregador_editais WHERE titulo_edital LIKE :searchTerm OR conteudo_edital LIKE :searchTerm");
+    $exibir_editais->bindValue(':searchTerm', '%' . $searchTerm . '%');
+} else {
+    // Caso não haja pesquisa, retorna todos os editais
+    $exibir_editais = $conn->prepare("SELECT * FROM empregador_editais");
+}
+
+$exibir_editais->execute();
+$editais = $exibir_editais->fetchAll();
 
 ?>
 
@@ -24,7 +43,7 @@ include "headHTML.php"
 ?>
 
 <body class="body-area-usuario">
-    
+
     <?php
     include "nav-lateral.php";
     ?>
@@ -63,118 +82,37 @@ include "headHTML.php"
                     </span>
                 </button>
             </nav>
-            <form>
-                <input type="search" id="search" placeholder="Pesquisar">
+            <form method="GET" action="">
+                <input type="search" id="search" name="search" placeholder="Pesquisar" value="<?php echo htmlspecialchars($searchTerm); ?>">
             </form>
         </div>
     </nav>
 
     <main class="main">
-        <section class="grid-pss">
-            <div class="card-estilo-1">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h4 class="card-title">Processo Seletivo Simplificado Paranaguá<br>2024</h4>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 01/2023 Upa 24h
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>08/05/2023 às 10h10min</p>
-                </div>
+        <?php if (!empty($editais)): ?>
+            <div class="grid-pss">
+                <?php foreach ($editais as $edital): ?>
+                    <div class="card-estilo-1">
+                        <img src="img/zero02.png" class="card-img-top" alt="Imagem do edital">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <?php echo htmlspecialchars($edital['titulo_edital']); ?>
+                            </h4>
+                            <a href="formulario.php?id=<?php echo $edital['id']; ?>" class="cards-texto-pss">
+                                <p class="card-text">
+                                    <?php echo htmlspecialchars($edital['conteudo_edital']); ?>
+                                </p>
+                            </a>
+                            <p>Publicado</p>
+                            <p><?php echo date('d/m/Y \à\s H\hi\m\i\n', strtotime($edital['data'])); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <div class="card-estilo-2">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">Processo Seletivo Simplificado Ponta Grossa</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 06/2023 Hospital Regional
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>18/06/2023 às 12h00min</p>
-                </div>
-            </div>
-            <div class="card-estilo-1">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">: Processo Seletivo Simplificado Maringá<br>2024</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 12/2023 Unidade Básica Saúde Internorter
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>15/03/2023 às 09h30min</p>
-                </div>
-            </div>
-            <div class="card-estilo-2">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">Processo Seletivo Simplificado Matinhos</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 04/2023 Unidade Básica de Saúde Riviera
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>04/09/2023 às 15h50min</p>
-                </div>
-            </div>
-            <div class="card-estilo-1">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">Processo Seletivo Simplificado Guaratuba<br>2024</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 08/2023 Unidade Básica De Saúde Figueira
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>01/02/2023 às 14h00min</p>
-                </div>
-            </div>
-            <div class="card-estilo-2">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">Processo Seletivo Simplificado Curitiba</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 11/2023 Unidades de Pronto Atendimento
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>28/04/2023 às 13h20min</p>
-                </div>
-            </div>
-            <div class="card-estilo-1">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">Processo Seletivo Simplificado Curitiba<br>2024</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital de Abertura nº 03/2023 Central de Atendimento Móvel
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>31/05/2023 às 17h30min</p>
-                </div>
-            </div>
-            <div class="card-estilo-2">
-                <img src="img/zero02.png" class="card-img-top" alt="PSS Fácil">
-                <div class="card-body">
-                    <h5 class="card-title">Processo Seletivo Simplificado Paranaguá</h5>
-                    <a href="formulario.php" class="cards-texto-pss">
-                        <p class="card-text">
-                            Edital nº 03/2023 Unidades de Pronto Atendimento
-                        </p>
-                    </a>
-                    <p>Publicado</p>
-                    <p>09/07/2023 às 11h00min</p>
-                </div>
-            </div>
+        <?php else: ?>
+            <p>Você ainda não cadastrou nenhum edital.</p>
+        <?php endif; ?>
+        </section>
         </section>
     </main>
 

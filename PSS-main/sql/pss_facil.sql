@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2024 at 03:36 PM
+-- Generation Time: Nov 20, 2024 at 06:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,7 +66,11 @@ CREATE TABLE `empregador_editais` (
 
 INSERT INTO `empregador_editais` (`id`, `id_empregador`, `conteudo_edital`, `data`, `titulo_edital`) VALUES
 (1, 3, 'teste conteudo edital', '2024-11-19 14:34:54', 'Teste de novo edital'),
-(2, 2, 'Conteudo', '2024-11-19 14:35:37', 'Teste edital em outra conta');
+(2, 2, 'Conteudo', '2024-11-19 14:35:37', 'Teste edital em outra conta'),
+(3, 3, 'Conteudo do edital 2', '2024-11-20 13:54:28', 'Teste edital 2'),
+(7, 3, 'TESTE', '2024-11-20 14:01:41', 'Teste edital 3333'),
+(8, 2, 'Conteudo do edital de teste', '2024-11-20 16:21:29', 'Edital titulo'),
+(9, 2, 'Conteudo para teste de edital ', '2024-11-20 16:45:38', 'Titulo do edital de teste');
 
 -- --------------------------------------------------------
 
@@ -213,7 +217,7 @@ ALTER TABLE `certificados_cursos`
 -- AUTO_INCREMENT for table `empregador_editais`
 --
 ALTER TABLE `empregador_editais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `mensagens_usuario`
