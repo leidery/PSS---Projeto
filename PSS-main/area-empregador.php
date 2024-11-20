@@ -34,6 +34,39 @@ if (isset($_POST['criar-edital'])) {
     exit();
 }
 
+// Processa a edição do edital
+if (isset($_POST['editar-edital'])) {
+    $id_edital = $_POST['id_edital'];
+    $titulo_edital = $_POST['titulo-edital'];
+    $conteudo_edital = $_POST['conteudo-edital'];
+
+    $update = $conn->prepare("UPDATE empregador_editais SET titulo_edital = :titulo, conteudo_edital = :conteudo WHERE id = :id AND id_empregador = :id_empregador");
+
+    $update->bindValue(':titulo', $titulo_edital);
+    $update->bindValue(':conteudo', $conteudo_edital);
+    $update->bindValue(':id', $id_edital, PDO::PARAM_INT);
+    $update->bindValue(':id_empregador', $_SESSION['login'], PDO::PARAM_INT);
+    $update->execute();
+}
+
+// Deletar editais
+if (isset($_POST['delete-edital'])) {
+    $id_edital = $_POST['id_edital'];
+
+    $delete = $conn->prepare('DELETE FROM empregador_editais  WHERE id = :id AND id_empregador = :id_empregador');
+
+    $delete->bindValue(':id', $id_edital, PDO::PARAM_INT);
+    $delete->bindValue(':id_empregador', $_SESSION['login'], PDO::PARAM_INT);
+
+    if ($delete->execute()) {
+        // Se a exclusão for bem-sucedida, atualize a página para refletir a mudança
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    } else {
+        echo "<p>Erro ao tentar excluir o edital.</p>";
+    }
+}
+
 // Exibir editais.
 $exibir_editais = $conn->prepare("SELECT * FROM empregador_editais WHERE id_empregador = :pId_empregador");
 $exibir_editais->bindValue(':pId_empregador', $_SESSION['login']);
@@ -45,15 +78,11 @@ $editais = $exibir_editais->fetchAll();
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<?php
-include "headHTML.php"
-?>
+<?php include "headHTML.php" ?>
 
 <body class="body-area-empregador">
 
-    <?php
-    include "nav-lateral.php";
-    ?>
+    <?php include "nav-lateral.php"; ?>
 
     <nav>
         <div id="search-container">
@@ -110,7 +139,7 @@ include "headHTML.php"
         </section>
 
         <h2>Meus Editais</h2>
-        <section>  
+        <section>
             <?php if (!empty($editais)): ?>
                 <div class="grid-pss">
                     <?php foreach ($editais as $edital): ?>
@@ -127,6 +156,27 @@ include "headHTML.php"
                                 </a>
                                 <p>Publicado</p>
                                 <p><?php echo date('d/m/Y \à\s H\hi\m\i\n', strtotime($edital['data'])); ?></p>
+
+                                <!-- Botão para alternar o formulário -->
+                                <button onclick="toggleForm(<?php echo $edital['id']; ?>)">Editar</button>
+
+                                <!-- Formulário de edição oculto por padrão -->
+                                <form action="" method="POST" id="form-<?php echo $edital['id']; ?>" style="display: none;">
+                                    <input type="hidden" name="id_edital" value="<?php echo $edital['id']; ?>">
+                                    <label for="titulo-edital-<?php echo $edital['id']; ?>">Título:</label>
+                                    <input type="text" id="titulo-edital-<?php echo $edital['id']; ?>" name="titulo-edital" value="<?php echo htmlspecialchars($edital['titulo_edital']); ?>" required><br>
+
+                                    <label for="conteudo-edital-<?php echo $edital['id']; ?>">Conteúdo:</label>
+                                    <textarea id="conteudo-edital-<?php echo $edital['id']; ?>" name="conteudo-edital" required><?php echo htmlspecialchars($edital['conteudo_edital']); ?></textarea><br>
+
+                                    <button type="submit" name="editar-edital">Salvar Alterações</button>
+                                </form>
+
+                                <!-- Botão de exclusão -->
+                                <form method="POST" action="">
+                                    <input type="hidden" name="id_edital" value="<?php echo $edital['id']; ?>">
+                                    <button type="submit" name="delete-edital" class="btn-delete">Excluir</button>
+                                </form>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -136,6 +186,16 @@ include "headHTML.php"
             <?php endif; ?>
         </section>
 
+        <script>
+            function toggleForm(id) {
+                const form = document.getElementById('form-' + id);
+                if (form.style.display === 'none') {
+                    form.style.display = 'block';
+                } else {
+                    form.style.display = 'none';
+                }
+            }
+        </script>
 
     </main>
 

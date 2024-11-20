@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2024 at 06:30 PM
+-- Generation Time: Nov 20, 2024 at 08:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,7 +70,8 @@ INSERT INTO `empregador_editais` (`id`, `id_empregador`, `conteudo_edital`, `dat
 (3, 3, 'Conteudo do edital 2', '2024-11-20 13:54:28', 'Teste edital 2'),
 (7, 3, 'TESTE', '2024-11-20 14:01:41', 'Teste edital 3333'),
 (8, 2, 'Conteudo do edital de teste', '2024-11-20 16:21:29', 'Edital titulo'),
-(9, 2, 'Conteudo para teste de edital ', '2024-11-20 16:45:38', 'Titulo do edital de teste');
+(9, 2, 'Conteudo para teste de edital ', '2024-11-20 16:45:38', 'Titulo do edital de teste'),
+(10, 6, 'Conteudo verdadeiro 2', '2024-11-20 18:17:33', 'Edital verdadeiro 2');
 
 -- --------------------------------------------------------
 
@@ -123,7 +124,8 @@ CREATE TABLE `tb_empregador` (
 
 INSERT INTO `tb_empregador` (`id_empregador`, `nome_empresa`, `cnpj`, `email`, `cep`, `rua`, `numero_endereco_empresa`, `complemento`, `bairro`, `cidade`, `uf`, `senha`, `telefone`, `celular`) VALUES
 (2, 'Empresa teste', '12345678901234', 'empresaX@gmail.com', 2546, 'sghhgfs', 34, 'afdg', 'adfs', 'asd', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 34573, 0),
-(3, 'Empresa X', '11111111111111', 'empresa@gmail.com', 32454, 'Teste', 123, '', 'Teste', 'Curitiba', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 365345, 0);
+(3, 'Empresa X', '11111111111111', 'empresa@gmail.com', 32454, 'Teste', 123, '', 'Teste', 'Curitiba', 'PR', 'e10adc3949ba59abbe56e057f20f883e', 365345, 0),
+(6, 'Outra empresa', '123', 'OutroEmail@gmail.com', 465356, 'ruaDoLadoDaOutraRua', 98980, 'Do lado da outra rua', 'Bairro Tal', 'Lá perto', 'MG', 'e10adc3949ba59abbe56e057f20f883e', 6453645, 6534);
 
 -- --------------------------------------------------------
 
@@ -217,7 +219,7 @@ ALTER TABLE `certificados_cursos`
 -- AUTO_INCREMENT for table `empregador_editais`
 --
 ALTER TABLE `empregador_editais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `mensagens_usuario`
@@ -229,7 +231,7 @@ ALTER TABLE `mensagens_usuario`
 -- AUTO_INCREMENT for table `tb_empregador`
 --
 ALTER TABLE `tb_empregador`
-  MODIFY `id_empregador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_empregador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_usuario`
