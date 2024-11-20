@@ -4,19 +4,13 @@ session_start();
 
 include "conn.php";
 
-// if (isset($_GET['logout'])) {
-//     session_unset(); // Limpa os dados da sessão
-//     session_destroy();
-//     $_SESSION = array(); // Limpa os dados da sessão do array global $_SESSION
-//     header('location: entrar.php?logged_out=true');
-//     exit();
-// }
-
+// Se não estiver logado, é redirecionado para login.
 if (!isset($_SESSION['login'])) {
     header('location: entrar.php');
     exit();
 }
 
+// Recupera os dados do usuário logado.
 if (isset($_SESSION['login'])) {
     $consulta_dados = $conn->prepare('SELECT * FROM `tb_empregador` WHERE id_empregador = :pId_empregador');
     $consulta_dados->bindValue(':pId_empregador', $_SESSION['login']);
@@ -24,6 +18,7 @@ if (isset($_SESSION['login'])) {
     $row_dados = $consulta_dados->fetch();
 }
 
+// Criar editais.
 if (isset($_POST['criar-edital'])) {
     $titulo_edital = $_POST['titulo-edital'];
     $texto_edital = $_POST['text-edital'];
@@ -34,7 +29,16 @@ if (isset($_POST['criar-edital'])) {
     $gravar->bindValue(':pTitulo_edital', $titulo_edital);
     $gravar->bindValue(':pConteudo_edital', $texto_edital);
     $gravar->execute();
+
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
 }
+
+// Exibir editais.
+$exibir_editais = $conn->prepare("SELECT * FROM empregador_editais WHERE id_empregador = :pId_empregador");
+$exibir_editais->bindValue(':pId_empregador', $_SESSION['login']);
+$exibir_editais->execute();
+$editais = $exibir_editais->fetchAll();
 
 ?>
 
@@ -104,6 +108,35 @@ include "headHTML.php"
                 <button type="submit" name="criar-edital">Criar Edital</button>
             </form>
         </section>
+
+        <h2>Meus Editais</h2>
+        <section>  
+            <?php if (!empty($editais)): ?>
+                <div class="grid-pss">
+                    <?php foreach ($editais as $edital): ?>
+                        <div class="card-estilo-1">
+                            <img src="img/zero02.png" class="card-img-top" alt="Imagem do edital">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <?php echo htmlspecialchars($edital['titulo_edital']); ?>
+                                </h4>
+                                <a href="formulario.php?id=<?php echo $edital['id']; ?>" class="cards-texto-pss">
+                                    <p class="card-text">
+                                        <?php echo htmlspecialchars($edital['conteudo_edital']); ?>
+                                    </p>
+                                </a>
+                                <p>Publicado</p>
+                                <p><?php echo date('d/m/Y \à\s H\hi\m\i\n', strtotime($edital['data'])); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <p>Você ainda não cadastrou nenhum edital.</p>
+            <?php endif; ?>
+        </section>
+
+
     </main>
 
     <script src="js/script.js"></script>
